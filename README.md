@@ -1,12 +1,36 @@
-# Домашнее задание к занятию "SQL. Часть 1 - `Согонов Алексей`"
+# Домашнее задание к занятию "Уязвимости и атаки на информационные системы - `Согонов Алексей`"
 
 ### Задание 1
 
 ```
 
-select distinct district 
-from address a 
-where district like 'K%a'and district not like '% %';
+1.
+ftp
+ssh
+telnet
+smtp
+domain
+rpcbind
+netbios-ssn
+exec
+login
+shell
+java-rmi
+bindshell
+nfs
+mysql
+postgresql
+vnc
+X11
+irc
+ajp13
+http
+
+2.
+
+https://www.exploit-db.com/exploits/32849
+https://www.exploit-db.com/exploits/30020
+https://www.exploit-db.com/exploits/15449
 
 ```
 
@@ -14,32 +38,19 @@ where district like 'K%a'and district not like '% %';
 
 ```
 
-select payment_id, amount, cast(payment_date as DATE) 
-from payment p 
-where amount > 10 and payment_date between '2005-06-15 00:00:01' and '2005-06-18 23:59:59';
+1.
+SYN -  Этот тип сканирования относительно ненавящив и незаметен, т.к. при таком сканировании TCP соединение никогда не устанавливается до конца. Он работает с любым TCP стеком.
+FIN - Устанавливается только TCP FIN бит.
+Xmas - Устанавливаются FIN, PSH и URG флаги.
+UPD - сканирование работает путем посылки пустого (без данных) UDP заголовка на каждый целевой порт.
+
+2.
+SYN - ответы SYN/ACK указывают на то, что порт прослушивается (открыт), а RST (сброс) на то, что не прослушивается. Если после нескольких запросов не приходит никакого ответа, то порт помечается как фильтруемый. Порт также помечается как фильтруемый, если в ответ приходит ICMP сообщение об ошибке недостижимости.
+
+FIN, Xmas -любой пакет, не содержащий установленного бита SYN, RST или ACK, повлечет за собой отправку RST в ответ в случае, если порт закрыт, или не повлечет никакого ответа, если порт открыт.
+
+UPD - Если в ответ приходит ICMP ошибка о недостижимости порта, значит порт закрыт. Другие ICMP ошибки недостижимости указывают на то, что порт фильтруется. Иногда, служба будет отвечать UDP пакетом, указывая на то, что порт открыт. Если после нескольких попыток не было получено никакого ответа, то порт классифицируется как открыт
 
 ```
 
-### Задание 3
-
-```
-
-select *
-from rental r 
-order by rental_date desc
-limit 5;
-
-```
-
-
-### Задание 4
-
-```
-
-select lower(first_name), lower(last_name), replace(first_name, 'LL', 'PP')
-from customer c 
-where active > 0 and first_name like 'Kelly' or first_name like 'Willie';
-
-
-```
 ---
